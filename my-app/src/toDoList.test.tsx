@@ -16,6 +16,8 @@ describe('ToDoList', () => {
         });
     });
 
+    //Additional test case to ensure that each item in the grocery list
+    //has a checkbox that also corresponds with the appropriate name attribute.
     test("all items in list have a corresponding checkbox", () => {
         render(<ToDoList />);
     
@@ -26,6 +28,11 @@ describe('ToDoList', () => {
         });
     });
 
+    //Required test for ensuring that the number of checked items from
+    //the dummyGroceryList is accurately reflected by the component.
+    //Initially, no items are checked and this test confirms that the count
+    //is 0 at the start. The test proceeds to check if the displayed count
+    //of checked items updates correctly when items are checked/unchecked.
     test("displays correct number of checked items", () => {
         render(<ToDoList />);
 

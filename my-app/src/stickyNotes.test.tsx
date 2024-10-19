@@ -3,6 +3,8 @@ import { StickyNotes } from "./stickyNotes";
 import { Label } from "./types";
 
 describe("Create StickyNote", () => {
+    //Test case to ensure that the "Create Note" button is being
+    //rendered properly in the StickyNotes component
     test("renders create note form", () => {
       render(<StickyNotes />);
    
@@ -10,6 +12,8 @@ describe("Create StickyNote", () => {
       expect(createNoteButton).toBeInTheDocument();
     });
    
+    //Test case to ensure that a new note is created properly when the
+    //user inputs the title and content and clicks on the "Create Note" button
     test("creates a new note", () => {
       render(<StickyNotes />);
 
@@ -31,6 +35,10 @@ describe("Create StickyNote", () => {
       expect(newNoteContent).toBeInTheDocument();
     });
 
+    //This required test verifies that all of the notes that are created are
+    //dislayed on the page. This test provides input for the note title and
+    //content of 2 notes, and then clicks on the "Create Note" button. It then
+    //checks to ensure that both notes have been rendered on the screen.
     test("reads and displays all created notes", () => {
         render(<StickyNotes />);
         
@@ -52,6 +60,9 @@ describe("Create StickyNote", () => {
         expect(screen.getByText("Second Note Content")).toBeInTheDocument();
       });
   
+      //This required test ensures that the document object value updates properly
+      //when the content of a note is changed. This test updates the 'innerHTML' of
+      //the note and saves changes accordingly.
       test("document object value updating", () => {
           render(<StickyNotes />);
   
@@ -81,6 +92,11 @@ describe("Create StickyNote", () => {
           expect(screen.getByText("Updated Content 1")).toBeInTheDocument();
       });
   
+      //This required test verifies that a note gets deleted/filtered out when the "x"
+      //button is pressed. A note is created for the purpose of testing, and the test uses
+      //a specific ID to identify the delete button. The delete button is clicked on, and the
+      //test confirms that the note was deleted by ensuring that the content of the deleted note
+      //isn't present on the screen.
       test("deletes a note", () => {
           render(<StickyNotes />);
         
@@ -101,7 +117,10 @@ describe("Create StickyNote", () => {
           expect(screen.queryByText("Delete Note Content")).not.toBeInTheDocument();
       });
 
-      test("form submission creates a note with correct title, content, and label", () => {
+      //This edge case test ensures that the title and content submitted to the form match
+      //the title and content displayed on the corresponding note by using the variables
+      //'noteTitle' and 'noteContent'.
+      test("title and content inputted in form match title and content displayed on note", () => {
         render(<StickyNotes />);
 
         const createNoteTitleInput = screen.getByPlaceholderText("Note Title");
@@ -109,7 +128,7 @@ describe("Create StickyNote", () => {
         const createNoteButton = screen.getByText("Create Note");
 
         const noteTitle = "Test Note Title";
-        const noteContent = "Test Note Content.";
+        const noteContent = "Test Note Content";
 
         fireEvent.change(createNoteTitleInput, { target: { value: noteTitle } });
         fireEvent.change(createNoteContentTextarea, { target: { value: noteContent } });
@@ -118,6 +137,5 @@ describe("Create StickyNote", () => {
 
         expect(screen.getByText(noteTitle)).toBeInTheDocument();
         expect(screen.getByText(noteContent)).toBeInTheDocument();
- 
     });
 });   
